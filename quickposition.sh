@@ -22,6 +22,8 @@
 
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+# Do not change these names as they are used within the Info.plist files
 LEFT="iPad Left.app"
 RIGHT="iPad Right.app"
 
@@ -59,8 +61,11 @@ openDisplaySettings
 confirm "Did you position your iPad to the RIGHT? (y/n) "
 printSettings > "${SCRIPT_DIR}/${RIGHT}/Contents/MacOS/iPadRight"
 
-# Copy the two folders into /Applications
+# Set the execute permissions
+chmod +X "${SCRIPT_DIR}/${LEFT}/Contents/MacOS/iPadLeft"
+chmod +X "${SCRIPT_DIR}/${RIGHT}/Contents/MacOS/iPadRight"
 
+# Copy the two folders into /Applications
 rm -rf "/Applications/${LEFT}"
 rm -rf "/Applications/${RIGHT}"
 cp -R "$LEFT" "/Applications"
