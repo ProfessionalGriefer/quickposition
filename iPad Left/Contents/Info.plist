@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key>
-    <string>iPadRight</string>
+    <string>iPadLeft</string>
 
     <key>CFBundleIdentifier</key>
-    <string>com.example.iPadRight</string>
+    <string>com.example.iPadLeft</string>
 
     <key>CFBundleName</key>
-    <string>iPadRight</string>
+    <string>iPad Left</string>
 
     <key>CFBundleDisplayName</key>
-    <string>iPad Right</string>
+    <string>iPad Left</string>
 
     <key>CFBundleVersion</key>
     <string>1.0</string>
 
-	<key>CFBundleIconFile</key>
-	<string>ipad Left.icns</string>
+	<!-- <key>CFBundleIconFile</key> -->
+	<!-- <string>iPad Left.icns</string> -->
 </dict>
 </plist>
