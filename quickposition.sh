@@ -49,7 +49,7 @@ if \$(existsMonitor)
 then
     run
 else
-    osascript ./sidecar.scpt $1
+    open /Applications/sidecar.app
     while ! \$(existsMonitor); do
         sleep .5
     done
@@ -75,6 +75,9 @@ echo "Welcome to QuickPosition."
 echo "What is the name of your iPad?"
 read -p "$1" -n 25 -r
 DEVICE_NAME=$REPLY
+
+cat ./sidecar.applescript | sed "s/iPadName/$DEVICE_NAME/g" | osacompile -o sidecar.app
+cp -R ./sidecar.app /Applications/
 
 confirm "The display settings are going to open. First, position your iPad to the left side of your MacBook (Press y to continue) "
 

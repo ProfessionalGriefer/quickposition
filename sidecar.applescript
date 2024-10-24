@@ -1,4 +1,4 @@
-on run {iPadName}
+on run {}
 	
 	(* Your script goes here *)
 	# Author: Vincent Nahn
@@ -35,9 +35,9 @@ on run {iPadName}
 		
 		# Get the iPad name from the parameters
 		
-		repeat until menu item iPadName of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events" exists
+		repeat until menu item "iPadName" of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events" exists
 		end repeat
-		click menu item iPadName of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
+		click menu item "iPadName" of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
 		
 		
 		(*
@@ -47,7 +47,7 @@ on run {iPadName}
 	
 	-- Loop through the menu items and find all "Vincent’s iPad" items
 	repeat with aMenuItem in iPadItems
-		if name of aMenuItem is iPadName then
+		if name of aMenuItem is "iPadName" then
 			set end of iPadItems to aMenuItem
 		end if
 	end repeat
@@ -64,4 +64,3 @@ on run {iPadName}
 	return 0
 	
 end run
-
