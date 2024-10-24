@@ -17,6 +17,9 @@
     <key>CFBundleVersion</key>
     <string>1.0</string>
 
+    <key>LSBackgroundOnly</key>
+    <true/>
+
 	<!-- <key>CFBundleIconFile</key> -->
 	<!-- <string>iPad Left.icns</string> -->
 </dict>
