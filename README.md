@@ -2,11 +2,12 @@
 
 QuickPosition is a command-line tool designed to streamline the process of configuring display positions on macOS. Specifically, it allows users to easily move their iPad (used as a secondary display via Sidecar) to either the left or right side of their Mac screen, without the need to manually adjust display settings through the system preferences.
 
-With QuickPosition, two `.app` files are generated in your `/Applications` folder. These can be executed to quickly switch the iPad display position with just one click in Finder.
+With QuickPosition, three `.app` files are generated in your `/Applications` folder. These can be executed to quickly switch the iPad display position with just one click in Finder.
 
 ## Features
 
 - Automates the process of moving an iPad display to the left or right of your Mac screen.
+- Activates the iPad as a second monitor with the **sidecar** app
 - Saves display configurations in two separate apps: **iPad Left** and **iPad Right**.
 - No need to open display settings manually – simply run the apps to apply your preferred display arrangement.
 
@@ -53,6 +54,12 @@ Once installed, simply open Finder and run the corresponding `.app` file from yo
 - **iPad Right.app**: Positions your iPad display on the right of your Mac.
 
 You can also customize these display positions by editing the `quickposition.sh` script and updating the display settings commands as needed.
+
+## Troubleshooting
+
+- It is important that the name of your iPad is the same name as the one you entered into the script. It is case sensitive.
+- "Vincent's iPad" is not the same as "Vincent`s iPad": Be careful with special characters
+- You should be automatically prompted to grant Accessibility permissions. If not, manually enable it under `System Settings > Privacy and Security > Accessibility`
 
 ## Requirements
 

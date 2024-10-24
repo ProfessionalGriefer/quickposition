@@ -31,10 +31,32 @@ RIGHT="iPad Right.app"
 function openDisplaySettings() {
     open /System/Library/PreferencePanes/Displays.prefPane
 }
-function printSettings() {
-    /opt/homebrew/bin/displayplacer list | tail -n 1 | sed 's/^displayplacer /\/opt\/homebrew\/bin\/displayplacer /' | sed '1i\
-#!/bin/bash
-    '
+
+
+
+# Param1: deviceName
+function template() {
+    echo "#!/bin/bash
+
+function run() {
+    $(displayplacer list | tail -n 1 | sed 's/^displayplacer /\/opt\/homebrew\/bin\/displayplacer /')
+}
+
+function existsMonitor() {
+    [ \$(/opt/homebrew/bin/displayplacer list | grep \"Persistent screen id\" | wc -l) -ge 2 ]
+}
+
+if \$(existsMonitor)
+then
+    run
+else
+    open /Applications/sidecar.app
+    while ! \$(existsMonitor); do
+        sleep .5
+    done
+    run
+fi
+"
 }
 
 
@@ -50,17 +72,26 @@ function confirm() {
 
 # Welcome Screen
 echo "Welcome to QuickPosition."
-confirm "The display settings are going to open. First, position your iPad to the left side of your MacBook (y/n) "
+
+echo "What is the name of your iPad?"
+read -p "$1" -n 25 -r
+DEVICE_NAME=$REPLY
+
+cat ./sidecar.applescript | sed "s/iPadName/$DEVICE_NAME/g" | osacompile -o sidecar.app
+cp -R ./sidecar.app /Applications/
+
+confirm "The display settings are going to open. First, position your iPad to the left side of your MacBook (Press y to continue) "
+
 
 # Left side
 openDisplaySettings
-confirm "Did you position your iPad to the LEFT? (y/n) "
-printSettings > "${SCRIPT_DIR}/${LEFT}/Contents/MacOS/iPadLeft"
+confirm "Did you position your iPad to the LEFT? (Press y to continue) "
+template $DEVICE_NAME > "${SCRIPT_DIR}/${LEFT}/Contents/MacOS/iPadLeft"
 
 # Right side
 openDisplaySettings
-confirm "Did you position your iPad to the RIGHT? (y/n) "
-printSettings > "${SCRIPT_DIR}/${RIGHT}/Contents/MacOS/iPadRight"
+confirm "Did you position your iPad to the RIGHT? (Press y to continue) "
+template $DEVICE_NAME > "${SCRIPT_DIR}/${RIGHT}/Contents/MacOS/iPadRight"
 
 # Set the execute permissions
 chmod +X "${SCRIPT_DIR}/${LEFT}/Contents/MacOS/iPadLeft"
@@ -75,3 +106,4 @@ cp -R "$RIGHT" "/Applications"
 
 # Exits
 echo "Thank you for using Quick Position!"
+echo "You can now remove the cloned directory."
