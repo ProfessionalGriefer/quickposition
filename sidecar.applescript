@@ -6,7 +6,13 @@ on run {}
 	# GUI script to open the System Settings and click on the button which activates Sidecar
 	# It would be better to to it through an API call but I couldn't find anything better than this
 	# Writing this AppleScript script was not fun at all
-	
+
+  set userLocale to user locale of (system info)
+  set addButtonName to "Add"
+
+  if userLocale is "de_DE" then
+    set addButtonName to "Hinzufügen"
+  end if
 	
 	# Currently Version 15
 	set OSmajor to system attribute "sys1"
@@ -29,20 +35,20 @@ on run {}
 	tell application "System Events"
 		
 		
-		repeat until pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings" exists
+		repeat until pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings" exists
 		end repeat
-		click pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
+		click pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
 		
 		# Get the iPad name from the parameters
 		
-		repeat until menu item "iPadName" of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events" exists
+		repeat until menu item "iPadName" of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events" exists
 		end repeat
-		click menu item "iPadName" of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
+		click menu item "iPadName" of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
 		
 		
 		(*
 	-- Idea is to click the last iPad Item, but AppleScript is too primitive to do even that
-	set menuItems to menu items of menu "Add" of pop up button "Add" of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
+	set menuItems to menu items of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
 	set iPadItems to {}
 	
 	-- Loop through the menu items and find all "Vincent’s iPad" items
