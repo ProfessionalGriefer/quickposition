@@ -1,3 +1,4 @@
+[![Bump](https://github.com/ProfessionalGriefer/quickposition/actions/workflows/main.yml/badge.svg)](https://github.com/ProfessionalGriefer/quickposition/actions/workflows/main.yml)
 # Quick Position
 
 QuickPosition is a command-line tool designed to streamline the process of configuring display positions on macOS. Specifically, it allows users to easily move their iPad (used as a secondary display via Sidecar) to either the left or right side of their Mac screen, without the need to manually adjust display settings through the system preferences.
