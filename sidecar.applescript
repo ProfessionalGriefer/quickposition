@@ -6,9 +6,15 @@ on run {}
 	# GUI script to open the System Settings and click on the button which activates Sidecar
 	# It would be better to to it through an API call but I couldn't find anything better than this
 	# Writing this AppleScript script was not fun at all
-	
-	set displayName to "iPadName"
-	set addButtonName to "Add"
+
+
+  set userLocale to user locale of (system info)
+  set displayName to "iPadName"
+  set addButtonName to "Add"
+
+  if userLocale is "de_DE" then
+    set addButtonName to "Hinzufügen"
+  end if
 	
 	# Currently Version 15
 	set OSmajor to system attribute "sys1"
@@ -30,6 +36,7 @@ on run {}
 	tell application "System Events"
 		set addButton to pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
 		
+
 		repeat until addButton exists
 		end repeat
 		click addButton
@@ -38,6 +45,7 @@ on run {}
 		
 		repeat until menu item displayName of monitorsMenu exists
 		end repeat
+
 		
 		set lastDisplayNameOccurence to -1
 		set monitorItemsCount to count menu items of monitorsMenu
