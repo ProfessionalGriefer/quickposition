@@ -7,7 +7,9 @@ on run {}
 	# It would be better to to it through an API call but I couldn't find anything better than this
 	# Writing this AppleScript script was not fun at all
 
+
   set userLocale to user locale of (system info)
+  set displayName to "iPadName"
   set addButtonName to "Add"
 
   if userLocale is "de_DE" then
@@ -27,40 +29,35 @@ on run {}
 		delay 1
 		set the current pane to pane id "com.apple.Displays-Settings.extension"
 		#reveal anchor "sidecarSection" of current pane
-		
 	end tell
 	
 	
 	
 	tell application "System Events"
+		set addButton to pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
 		
-		
-		repeat until pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings" exists
+
+		repeat until addButton exists
 		end repeat
-		click pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
+		click addButton
 		
-		# Get the iPad name from the parameters
+		set monitorsMenu to menu "Hinzufügen" of addButton
 		
-		repeat until menu item "iPadName" of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events" exists
+		repeat until menu item displayName of monitorsMenu exists
 		end repeat
-		click menu item "iPadName" of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
+
 		
+		set lastDisplayNameOccurence to -1
+		set monitorItemsCount to count menu items of monitorsMenu
 		
-		(*
-	-- Idea is to click the last iPad Item, but AppleScript is too primitive to do even that
-	set menuItems to menu items of menu addButtonName of pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of application process "System Settings" of application "System Events"
-	set iPadItems to {}
-	
-	-- Loop through the menu items and find all "Vincent’s iPad" items
-	repeat with aMenuItem in iPadItems
-		if name of aMenuItem is "iPadName" then
-			set end of iPadItems to aMenuItem
-		end if
-	end repeat
-	*)
+		repeat with i from 1 to monitorItemsCount
+			set currentItem to menu item i of monitorsMenu
+			if (name of currentItem) is equal to displayName then
+				set lastDisplayNameOccurence to i
+			end if
+		end repeat
 		
-		
-		
+		click menu item lastDisplayNameOccurence of monitorsMenu
 	end tell
 	
 	-- Close the Settings window
@@ -70,3 +67,4 @@ on run {}
 	return 0
 	
 end run
+
