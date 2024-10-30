@@ -34,11 +34,11 @@ on run {}
 	
 	
 	tell application "System Events"
-		set addButton to pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
 		
 
-		repeat until addButton exists
+		repeat until pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings" exists
 		end repeat
+		set addButton to pop up button addButtonName of group 1 of group 2 of splitter group 1 of group 1 of window "Displays" of process "System Settings"
 		click addButton
 		
 		set monitorsMenu to menu addButtonName of addButton

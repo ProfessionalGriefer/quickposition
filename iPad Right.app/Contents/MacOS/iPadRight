@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function run() {
+    /opt/homebrew/bin/displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0" "id:AC4DC02B-AA61-9D47-C90B-A2661D91F570 res:1180x820 hz:60 color_depth:8 enabled:true scaling:on origin:(1440,0) degree:0"
+}
+
+function existsMonitor() {
+    [ $(/opt/homebrew/bin/displayplacer list | grep "Persistent screen id" | wc -l) -ge 2 ]
+}
+
+if $(existsMonitor)
+then
+    run
+else
+    open /Applications/sidecar.app
+    while ! $(existsMonitor); do
+        sleep .5
+    done
+    run
+fi
+
