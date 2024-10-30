@@ -1,0 +1,34 @@
+name: Bump
+on:
+  # trigger when release got created (preferred)
+  release:
+    types: [released]
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Bump formulae
+        uses: dawidd6/action-homebrew-bump-formula@master
+        continue-on-error: true
+        with:
+          # Required, custom personal GitHub access token with only the 'public_repo' scope enabled
+          token: ${{secrets.TOKEN}}
+          # Optional, will commit with this user name
+          user_name: ProfessionalGriefer
+          # Optional, will commit with this user email
+          user_email: vincentnahn@gmail.com
+          # Optional, will create tap repo fork in organization
+          # org: ORG
+          # Bump all outdated formulae in this tap
+          tap: ProfessionalGriefer/homebrew-tap
+          # Bump only these formulae if outdated
+          formula: quickposition
+          # Optional, if don't want to check for already open PRs
+          force: false # true
+          # Need to set this input if want to use `brew livecheck`
+          livecheck: true
+        env:
+          HOMEBREW_LIVECHECK_WATCHLIST: formulae
