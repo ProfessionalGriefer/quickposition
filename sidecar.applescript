@@ -8,13 +8,13 @@ on run {}
 	# Writing this AppleScript script was not fun at all
 
 
-  set userLocale to user locale of (system info)
-  set displayName to "iPadName"
-  set addButtonName to "Add"
+	set userLocale to user locale of (system info)
+	set displayName to "templeOS"
+	set addButtonName to "Add"
 
-  if userLocale is "de_DE" then
-    set addButtonName to "Hinzufügen"
-  end if
+	if userLocale is "de_DE" then
+		set addButtonName to "Hinzufügen"
+	end if
 	
 	# Currently Version 15
 	set OSmajor to system attribute "sys1"
@@ -41,7 +41,7 @@ on run {}
 		end repeat
 		click addButton
 		
-		set monitorsMenu to menu "Hinzufügen" of addButton
+		set monitorsMenu to menu addButtonName of addButton
 		
 		repeat until menu item displayName of monitorsMenu exists
 		end repeat
@@ -67,4 +67,3 @@ on run {}
 	return 0
 	
 end run
-
